@@ -1,1 +1,5 @@
-HI HELLOHI HELLOHI HELLOHI HELLOHI HELLOHI HELLOHI HELLOHI HELLOHI HELLO
+#실전코딩 10조
+##주의할 점
+push 하기 전 **현재 위치의 branch**를 한번 더 확인해 주십시오.
+
+신승혁
