@@ -1,26 +1,22 @@
 package com.cnu.blackjack;
 
-import com.cnu.blackjack.exceptions.NoRankException;
+import com.cnu.blackjack.exceptions.NoSuchRankException;
 import org.junit.Test;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class CardTest {
 
     @Test
-    public void 스페이드_10_카드를_생성할수있다(){
-        Card card = new Card(1, Suit.CLOVER);
-        int rank = card.getRank();
-        Suit suit = card.getSuit();
-        assertTrue(rank == 1);
-        assertFalse(suit.equals("SPADE"));
-
+    public void 카드_5_다이아몬드_생성_성공()  {
+        Card card = new Card(5, Suit.DIAMONDS);
+        assertThat(card.getRank(), is(5));
+        assertThat(card.getSuit(), is(Suit.DIAMONDS));
     }
 
-    @Test(expected = NoRankException.class)
-    public void 카드의_랭크는_13_이하여야한다(){
-        Card card = new Card(15, Suit.CLOVER);
+    @Test(expected = NoSuchRankException.class)
+    public void 카드랭크_14는_생성_불가() {
+        new Card(14, Suit.CLUBS);
     }
 }

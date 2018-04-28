@@ -7,36 +7,36 @@ import java.util.Collections;
 import java.util.List;
 
 public class Deck {
-    private final int numberOfDeck;
+    private final int number;
     private final List<Card> cardList;
 
-
-    public Deck(int numberOfDeck) {
-        this.numberOfDeck = numberOfDeck;
-        cardList = new ArrayList<Card>();
-        createCard(numberOfDeck);
+    public Deck(int number) {
+        this.number = number;
+        this.cardList = new ArrayList<Card>();
+        createDecks(number);
         Collections.shuffle(cardList);
     }
-    //ctrl alt m
-    private void createCard(int numberOfDeck) {
-        for (int j = 0 ; j<numberOfDeck ; j++){
-            for (int i =1 ; i< 14 ; i++){ //ACE, 숫자2 ... 에대해서 만든다
-                for (Suit suit : Suit.values()) {
+
+    private void createDecks(int number) {
+        // create card for single deck
+        for (int j = 0; j < number; j++) {
+            for (Suit suit : Suit.values()) {
+                for (int i = 1 ; i < 14; i++) {
                     Card card = new Card(i, suit);
                     cardList.add(card);
-               }
-          }
+                }
+            }
         }
     }
 
-    public int getTotalCardCount() {
+    public int getTotalCard() {
         return cardList.size();
     }
 
     public Card drawCard() {
-        if (cardList.size() ==0 ){
+        if (cardList.size() == 0) {
             throw new NoMoreCardException();
         }
-       return cardList.remove(0);
+        return cardList.remove(0);
     }
 }
