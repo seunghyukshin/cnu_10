@@ -1,13 +1,28 @@
 package com.cnu.blackjack;
 
-import com.cnu.blackjack.Dealer;
+import org.junit.Test;
 
-import static org.junit.Assert.assertTrue;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.greaterThanOrEqualTo;
+import static org.hamcrest.Matchers.lessThan;
 
 public class DealerTest {
-    public void 딜러는_17에서25사이의_점수를반환한다(){
-        Dealer dealer = new Dealer();
-        int score = dealer.getScore();
-        assertTrue(score >16 && score< 25);
+
+    @Test
+    public void 딜러는_17에서_26사이가_나온다() {
+        Deck deck = new Deck(1);
+        Dealer dealer = new Dealer(deck);
+
+        int dealerScore = dealer.getDealerScore();
+
+        while(dealerScore<=16){
+            dealer.hitCard();
+            dealerScore = dealer.getDealerScore();
+        }
+
+        assertThat(dealerScore, lessThan(27));
+        assertThat(dealerScore, greaterThanOrEqualTo(17));
     }
+
+
 }

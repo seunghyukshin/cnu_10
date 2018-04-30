@@ -1,38 +1,39 @@
 package com.cnu.blackjack;
 
+import com.cnu.blackjack.exceptions.NoMoreCardException;
 import org.junit.Test;
 
-import static org.junit.Assert.assertTrue;
-
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class DeckTest {
-    @Test
-    public void 하나의덱은_총_52장의_카드를갖는다(){
-        Deck deck =  new Deck(1);
-        int totalCardCount = deck.getTotalCardCount();
-        assertTrue(totalCardCount == 52);
 
-    }
     @Test
-    public void 세개의덱은_총_156장의_카드를갖는다(){
-        Deck deck =  new Deck(3);
-        int totalCardCount = deck.getTotalCardCount();
-        assertTrue(totalCardCount == 156);
+    public void Deck2개_총카드수는_104장의카드_성공() {
+        Deck deck = new Deck(2);
+        assertThat(deck.getTotalCard(), is(104));
+    }
 
-    }
     @Test
-    public void 하나의_덱에서_카드한장을뽐으면_51장의_카드가_남아야한다(){
-        Deck deck =new Deck(1);
+    public void Deck5개_총카드수는_260장의카드_성공() {
+        Deck deck = new Deck(5);
+        assertThat(deck.getTotalCard(), is(260));
+    }
+
+    @Test
+    public void Deck1개_하나의카드뽑으면_51장의카드남음_성공() {
+        Deck deck = new Deck(1);
         deck.drawCard();
-        int totalCardCount = deck.getTotalCardCount();
-        assertTrue(totalCardCount==51);
+        assertThat(deck.getTotalCard(), is(51));
     }
-    @Test
-    public void 하나의_덱에서_모든카드를뽑으면_에러가발생한다(){
-        Deck deck =new Deck(1);
-        for(int i=0 ; i<51; i++){
-            deck.drawCard();
-        }
 
+    @Test(expected = NoMoreCardException.class)
+    public void Deck1개_카드가_없으면_NoMoreCardException() {
+        Deck deck = new Deck(1);
+        int count = deck.getTotalCard();
+        for (int i = 0; i < count; i++) {
+            System.out.println(deck.drawCard());
+        }
+        deck.drawCard();
     }
 }
